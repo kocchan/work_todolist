@@ -10,9 +10,12 @@ form.addEventListener("submit", function(event){
 })
 
 function add() {
-    const li = document.createElement("li");
-    li.innerText = input.value;
-    li.classList.add("list-group-item");
-    ul.appendChild(li);
-    input.value = "";
+    let todoText = input.value;
+    if ( todoText.length > 0 ){
+        const li = document.createElement("li");
+        li.innerText = todoText;
+        li.classList.add("list-group-item");
+        ul.appendChild(li);
+        input.value = "";
+    }
 }
