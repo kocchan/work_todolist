@@ -9,7 +9,6 @@ if(todos){
     todos.forEach(todo =>{
         add(todo);
     })
-    // console.log(todos)
 }
 
 // formにsubmit（enterキーが押されたら）されたらfunctonの処理がされる
@@ -27,6 +26,11 @@ function add(x) {
         const li = document.createElement("li");
         li.innerText = todoText;
         li.classList.add("list-group-item");
+        li.addEventListener("contextmenu", function(event){
+            event.preventDefault();
+            li.remove();
+            saveData();
+        })
         ul.appendChild(li);
         input.value = "";
         saveData();
