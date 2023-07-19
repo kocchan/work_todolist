@@ -31,6 +31,9 @@ function add(x) {
             li.remove();
             saveData();
         })
+        li.addEventListener("click",function(event){
+            li.classList.toggle("text-decoration-line-through");
+        })
         ul.appendChild(li);
         input.value = "";
         saveData();
