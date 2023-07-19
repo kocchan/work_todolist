@@ -17,22 +17,30 @@ form.addEventListener("submit", function(event){
     add();
 })
 
-function add(x) {
+function add(todo) {
     let todoText = input.value;
-    if(x){
-        todoText = x;
+    if(todo){
+        todoText = todo.text;
     }
     if ( todoText.length > 0 ){
         const li = document.createElement("li");
         li.innerText = todoText;
         li.classList.add("list-group-item");
+        
+        if(todo && todo.completed){
+            li.classList.add("text-decoration-line-through");
+            saveData();
+        }
+
         li.addEventListener("contextmenu", function(event){
             event.preventDefault();
             li.remove();
             saveData();
         })
+
         li.addEventListener("click",function(event){
             li.classList.toggle("text-decoration-line-through");
+            saveData();
         })
         ul.appendChild(li);
         input.value = "";
@@ -45,8 +53,11 @@ function saveData(){
     const lists = document.querySelectorAll("li") ;
     let todos = [];
     lists.forEach(list => {
-        todos.push(list.innerText)
+        let todo = {
+            text: list.innerText,
+            completed: list.classList.contains("text-decoration-line-through"),
+        };
+        todos.push(todo)
     })
-    // console.log(todos);
     localStorage.setItem("todos",JSON.stringify(todos));
 }
